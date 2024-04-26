@@ -1,0 +1,44 @@
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+
+function MovieDetails() {
+  const { id } = useParams();
+  const [movie, setMovie] = useState(null);
+
+  useEffect(() => {
+    const fetchMovie = async () => {
+      try {
+        const response = await axios.get(http://www.omdbapi.com/?apikey=4a3b711b&i=${id});
+        console.log(response);
+        setMovie(response.data);
+      } catch (error) {
+        console.log('Error fetching movie:', error);
+      }
+    };
+    fetchMovie();
+  }, [id]);
+
+  return (
+    <div>
+      <h1>Movie Details</h1>
+      {movie ? (
+        <div style={{display:"flex", justifyContent:"space-around"}}>
+            <div>
+                <img src={movie.Poster} height="300px" width="180px"/>
+            </div>
+            <div>
+            <h2>{movie.Title}</h2>
+            <p>Type: {movie.Type}</p>
+            <p>Actors: {movie.Actors}</p>
+            </div>   
+
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
+    </div>
+  );
+}
+
+export default MovieDetails;
