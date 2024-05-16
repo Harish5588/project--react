@@ -1,46 +1,17 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { addItem } from '../Components/cartSlice';
-
-function Menu() {
-  const dispatch = useDispatch();
-  const menuItems = useSelector(state => state.menu.items);
-
-  useEffect(() => {
-    fetch('./menuData.json')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch menu items');
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log('Menu data:', data); // Log the data received from the JSON response
-        dispatch({ type: 'setMenu', payload: data })
-      })
-      .catch(error => console.error('Error fetching menu items:', error));
-  }, [dispatch]);
-
-  const handleAddToCart = (item) => {
-    dispatch(addItem(item));
+useEffect(() => {
+  const fetchMenuData = async () => {
+    try {
+      const response = await fetch('./menuData.json');
+      if (!response.ok) {
+        throw new Error('Failed to fetch menu items');
+      }
+      const data = await response.json();
+      console.log('Menu data:', data);
+      dispatch({ type: 'setMenu', payload: data });
+    } catch (error) {
+      console.error('Error fetching menu items:', error);
+    }
   };
 
-  return (
-    <div>
-      <h2>Menu</h2>
-      <ul>
-        {menuItems.map(item => (
-          <li key={item.id}>
-            <img src={item.image} alt={item.name} />
-            <div>{item.name}</div>
-            <div>${item.price}</div>
-            {/* Pass item as parameter to handleAddToCart */}
-            <button onClick={() => handleAddToCart(item)}>Add to Cart</button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-export default Menu;
+  fetchMenuData();
+}, [dispatch]);
