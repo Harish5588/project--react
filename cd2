@@ -15,3 +15,36 @@ const fetchWeatherData=async(city)=>{
 };
 
 export default fetchWeatherData;
+
+////////////////////
+import React,{useState} from 'react';
+import {useSelector,useDispatch} from 'react-redux';
+import {fetchWeather,selectWeather} from './Components/weatherSlice';
+
+function App(){
+  const dispatch =useDispatch();
+  const {data,loading,error}=useSelector(selectWeather);
+  const [city,setCity]=useState('');
+  const handleSearch=()=>{
+    dispatch(fetchWeather(city));
+  };
+
+  return(
+    <div>
+      <input type='text' onChange={(e)=>setCity(e.target.value)} placeholder='enter city name' />
+      <button onClick={handleSearch}>Search</button>
+      {loading && <div>Loading...</div>}
+      {error && <div>{error}</div>}
+      {data &&(
+        <div>
+          <h2>{data.name}</h2>
+          <p>Temp:{data.main.temp_c}</p>
+          <p>Description:{data.weather[0].description}</p>
+          <p>Humidity:{data.main.humidity}</p>
+          <p>Wind Speed:{data.wind.speed}</p>
+          </div>
+      )}
+    </div>
+  )
+}
+export default App;
