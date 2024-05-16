@@ -1,11 +1,38 @@
-configureStore.ts:105 Uncaught Error: `reducer` is a required argument, and must be a function or an object of functions that can be passed to combineReducers
-    at configureStore (configureStore.ts:105:1)
-    at ./src/store/store.js (store.js:5:1)
-    at options.factory (react refresh:6:1)
-    at __webpack_require__ (bootstrap:22:1)
-    at fn (hot module replacement:61:1)
-    at ./src/index.js (Menu.js:38:1)
-    at options.factory (react refresh:6:1)
-    at __webpack_require__ (bootstrap:22:1)
-    at startup:7:1
-    at startup:7:1
+import React ,{useEffect}from 'react';
+import {useSelector,useDispatch} from 'react-redux';
+
+import { addItem } from '../Components/cartSlice';
+function Menu (){
+    const dispatch=useDispatch();
+    const menuItems=useSelector(state=>state.menu.items);
+
+    useEffect(()=>{
+        fetch('menuData.json')
+        .then(response=>response.json())
+        .then(data=>dispatch({type:'setMenu',payload:data}))
+        .catch(error=>console.log('error fetching',error));
+    },[dispatch]);
+
+
+   const handleAddToCart=(item)=>{
+    dispatch(addItem(item));
+   };
+
+    return(
+        <div>
+            <h2>Menu</h2>
+            <ul>
+                {menuItems.map(item=>(
+                    <li key={item.id}>
+                        <img src={item.image} alt={item.name}/>
+                        <div> {item.name}</div>
+                        <div>${item.price}</div>
+                        <button onClick={handleAddToCart}>Add to Cart</button>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+export default Menu;
