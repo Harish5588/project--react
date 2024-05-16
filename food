@@ -1,0 +1,38 @@
+useReduxContext.ts:17 Uncaught Error: could not find react-redux context value; please ensure the component is wrapped in a <Provider>
+    at useReduxContext2 (useReduxContext.ts:17:1)
+    at useStore2 (useStore.ts:97:1)
+    at useDispatch2 (useDispatch.ts:72:1)
+    at Cart (Cart.js:6:1)
+    at renderWithHooks (react-dom.development.js:15486:1)
+    at mountIndeterminateComponent (react-dom.development.js:20103:1)
+    at beginWork (react-dom.development.js:21626:1)
+    at HTMLUnknownElement.callCallback (react-dom.development.js:4164:1)
+    at Object.invokeGuardedCallbackDev (react-dom.development.js:4213:1)
+    at invokeGuardedCallback (react-dom.development.js:4277:1)
+react-dom.development.js:18704 The above error occurred in the <Menu> component:
+
+    at Menu (http://localhost:3000/static/js/bundle.js:336:76)
+    at div
+    at App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+react-dom.development.js:18704 The above error occurred in the <Cart> component:
+
+    at Cart (http://localhost:3000/static/js/bundle.js:190:76)
+    at div
+    at App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+useReduxContext.ts:17 Uncaught Error: could not find react-redux context value; please ensure the component is wrapped in a <Provider>
+    at useReduxContext2 (useReduxContext.ts:17:1)
+    at useStore2 (useStore.ts:97:1)
+    at useDispatch2 (useDispatch.ts:72:1)
+    at Menu (Menu.js:6:1)
+    at renderWithHooks (react-dom.development.js:15486:1)
+    at mountIndeterminateComponent (react-dom.development.js:20103:1)
+    at beginWork (react-dom.development.js:21626:1)
+    at beginWork$1 (react-dom.development.js:27465:1)
+    at performUnitOfWork (react-dom.development.js:26596:1)
+    at workLoopSync (react-dom.development.js:26505:1)
