@@ -1,0 +1,72 @@
+// weatherSlice.js
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { fetchWeatherData, fetchForecastData } from './weatherAPI';
+
+// Async thunk to fetch weather data
+export const fetchWeather = createAsyncThunk(
+  'weather/fetchWeather',
+  async (city, { rejectWithValue }) => {
+    try {
+      const response = await fetchWeatherData(city);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+// Async thunk to fetch forecast data
+export const fetchForecast = createAsyncThunk(
+  'weather/fetchForecast',
+  async (city, { rejectWithValue }) => {
+    try {
+      const response = await fetchForecastData(city);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+const weatherSlice = createSlice({
+  name: 'weather',
+  initialState: {
+    currentWeather: null,
+    forecast: [],
+    loadingWeather: false,
+    loadingForecast: false,
+    error: null,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchWeather.pending, (state) => {
+        state.loadingWeather = true;
+        state.error = null;
+      })
+      .addCase(fetchWeather.fulfilled, (state, action) => {
+        state.loadingWeather = false;
+        state.currentWeather = action.payload;
+      })
+      .addCase(fetchWeather.rejected, (state, action) => {
+        state.loadingWeather = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchForecast.pending, (state) => {
+        state.loadingForecast = true;
+        state.error = null;
+      })
+      .addCase(fetchForecast.fulfilled, (state, action) => {
+        state.loadingForecast = false;
+        state.forecast = action.payload;
+      })
+      .addCase(fetchForecast.rejected, (state, action) => {
+        state.loadingForecast = false;
+        state.error = action.payload;
+      });
+  },
+});
+
+export const selectWeather = (state) => state.weather;
+
+export default weatherSlice.reducer;
