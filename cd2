@@ -49,14 +49,44 @@ function App(){
 }
 export default App;
 ///////////////////////////
-App.js:22 Uncaught TypeError: Cannot read properties of undefined (reading 'temp_c')
-    at App (App.js:22:1)
-    at renderWithHooks (react-dom.development.js:15486:1)
-    at updateFunctionComponent (react-dom.development.js:19617:1)
-    at beginWork (react-dom.development.js:21640:1)
-    at HTMLUnknownElement.callCallback (react-dom.development.js:4164:1)
-    at Object.invokeGuardedCallbackDev (react-dom.development.js:4213:1)
-    at invokeGuardedCallback (react-dom.development.js:4277:1)
-    at beginWork$1 (react-dom.development.js:27490:1)
-    at performUnitOfWork (react-dom.development.js:26596:1)
-    at workLoopSync (react-dom.development.js:26505:1)
+// App.js
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchWeather, selectWeather } from './Components/weatherSlice';
+
+function App() {
+  const dispatch = useDispatch();
+  const { data, loading, error } = useSelector(selectWeather);
+  const [city, setCity] = useState('');
+
+  const handleSearch = () => {
+    dispatch(fetchWeather(city));
+  };
+
+  return (
+    <div>
+      <input
+        type='text'
+        onChange={(e) => setCity(e.target.value)}
+        placeholder='Enter city name'
+      />
+      <button onClick={handleSearch}>Search</button>
+      
+      {loading && <div>Loading...</div>}
+      {error && <div>{error}</div>}
+      {data && (
+        <div>
+          <h2>{data.name}</h2>
+          {data.main && <p>Temp: {data.main.temp_c} °C</p>}
+          {data.weather && data.weather[0] && (
+            <p>Description: {data.weather[0].description}</p>
+          )}
+          {data.main && <p>Humidity: {data.main.humidity}</p>}
+          {data.wind && <p>Wind Speed: {data.wind.speed}</p>}
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default App;
