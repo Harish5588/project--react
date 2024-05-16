@@ -41,3 +41,21 @@ function Menu() {
 }
 
 export default Menu;
+
+-------------------------------------------
+Menu.js:17 Error fetching menu items: SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+(anonymous)	@	Menu.js:17
+Promise.catch (async)		
+(anonymous)	@	Menu.js:17
+commitHookEffectListMount	@	react-dom.development.js:23189
+commitPassiveMountOnFiber	@	react-dom.development.js:24965
+commitPassiveMountEffects_complete	@	react-dom.development.js:24930
+commitPassiveMountEffects_begin	@	react-dom.development.js:24917
+commitPassiveMountEffects	@	react-dom.development.js:24905
+flushPassiveEffectsImpl	@	react-dom.development.js:27078
+flushPassiveEffects	@	react-dom.development.js:27023
+(anonymous)	@	react-dom.development.js:26808
+workLoop	@	scheduler.development.js:266
+flushWork	@	scheduler.development.js:239
+performWorkUntilDeadline	@	scheduler.development.js:533
+
