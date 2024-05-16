@@ -48,3 +48,15 @@ function App(){
   )
 }
 export default App;
+///////////////////////////
+App.js:22 Uncaught TypeError: Cannot read properties of undefined (reading 'temp_c')
+    at App (App.js:22:1)
+    at renderWithHooks (react-dom.development.js:15486:1)
+    at updateFunctionComponent (react-dom.development.js:19617:1)
+    at beginWork (react-dom.development.js:21640:1)
+    at HTMLUnknownElement.callCallback (react-dom.development.js:4164:1)
+    at Object.invokeGuardedCallbackDev (react-dom.development.js:4213:1)
+    at invokeGuardedCallback (react-dom.development.js:4277:1)
+    at beginWork$1 (react-dom.development.js:27490:1)
+    at performUnitOfWork (react-dom.development.js:26596:1)
+    at workLoopSync (react-dom.development.js:26505:1)
