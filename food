@@ -1,42 +1,20 @@
-import { createSlice } from '@reduxjs/toolkit';
+react-jsx-dev-runtime.development.js:87 Warning: Each child in a list should have a unique "key" prop.
 
-const initialState = {
-  items: [],
-};
-
-const cartSlice = createSlice({
-  name: 'cart',
-  initialState,
-  reducers: {
-    addItemToCart: (state, action) => {
-      const itemInCart = state.items.find(item => item.id === action.payload.id);
-      if (itemInCart) {
-        itemInCart.quantity += 1;
-      } else {
-        state.items.push({ ...action.payload, quantity: 1 });
-      }
-    },
-    removeItemFromCart: (state, action) => {
-      state.items = state.items.filter(item => item.id !== action.payload.id);
-    },
-    incrementItemQuantity: (state, action) => {
-      const item = state.items.find(item => item.id === action.payload.id);
-      if (item) {
-        item.quantity += 1;
-      }
-    },
-    decrementItemQuantity: (state, action) => {
-      const item = state.items.find(item => item.id === action.payload.id);
-      if (item && item.quantity > 1) {
-        item.quantity -= 1;
-      } else if (item && item.quantity === 1) {
-        state.items = state.items.filter(item => item.id !== action.payload.id);
-      }
-    }
-  }
-});
-
-export const { addItemToCart, removeItemFromCart, incrementItemQuantity, decrementItemQuantity } = cartSlice.actions;
-export const selectCartItems = state => state.cart.items;
-
-export default cartSlice.reducer;
+Check the render method of `Cart`. See https://reactjs.org/link/warning-keys for more information.
+    at li
+    at Cart (http://localhost:3000/static/js/bundle.js:296:77)
+    at div
+    at App
+    at Provider (http://localhost:3000/static/js/bundle.js:45981:3)
+2
+createStore.ts:201 Uncaught Error: Actions must be plain objects. Instead, the actual type was: 'undefined'. You may need to add middleware to your store setup to handle dispatching other values, such as 'redux-thunk' to handle dispatching functions. See https://redux.js.org/tutorials/fundamentals/part-4-store#middleware and https://redux.js.org/tutorials/fundamentals/part-6-async-logic#using-the-redux-thunk-middleware for examples.
+    at Object.dispatch (createStore.ts:201:1)
+    at dispatch (autoBatchEnhancer.ts:114:1)
+    at serializableStateInv…Middleware.ts:167:1
+    at redux-thunk.mjs:7:1
+    at immutableStateInvari…Middleware.ts:175:1
+    at actionCreatorInvariantMiddleware.ts:29:1
+    at onClick (Cart.js:34:1)
+    at HTMLUnknownElement.callCallback (react-dom.development.js:4164:1)
+    at Object.invokeGuardedCallbackDev (react-dom.development.js:4213:1)
+    at invokeGuardedCallback (react-dom.development.js:4277:1)
